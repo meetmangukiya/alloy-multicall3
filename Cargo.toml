@@ -1,0 +1,10 @@
+[package]
+name = "alloy-multicall3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+alloy = { version = "0.1.2", features = ["full"] }
+
+[dev-dependencies]
+tokio = { version = "1.38.0", features = ["full"] }
