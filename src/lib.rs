@@ -87,25 +87,23 @@ mod tests {
                 address!("ca11bde05977b3631167028862be2a173976ca11"),
                 &provider,
             );
-            if let Ok((a, b)) = multicall!(
+            let (a, b) = multicall!(
                 provider_ref,
                 multicall3,
                 multicall3.aggregate(vec![]),
                 multicall3.aggregate3(vec![])
             )
-            .await
-            {
-                let a = a?;
-                eprintln!(
-                    "res1 = returnData: {:?}, blockNumber: {:?}, res2 = returnData: {:?}",
-                    a.returnData,
-                    a.blockNumber,
-                    b?.returnData
-                        .iter()
-                        .map(|ret| format!("ret: {:?}, success: {:?}", ret.returnData, ret.success))
-                        .collect::<Vec<String>>()
-                );
-            }
+            .await?;
+            let a = a?;
+            eprintln!(
+                "res1 = returnData: {:?}, blockNumber: {:?}, res2 = returnData: {:?}",
+                a.returnData,
+                a.blockNumber,
+                b?.returnData
+                    .iter()
+                    .map(|ret| format!("ret: {:?}, success: {:?}", ret.returnData, ret.success))
+                    .collect::<Vec<String>>()
+            );
             Ok::<_, Box<dyn std::error::Error>>(())
         });
         ret.unwrap();
